@@ -247,7 +247,7 @@ export default function Checkout() {
                         <a
                           href="qr.png"
                           download="qr.png"
-                          className="absolute md:top-5 md:right-16 top-5 right-16 text-gray-500 hover:text-blue-600"
+                          className="absolute md:top-5 md:right-16 text-gray-500 hover:text-blue-600"
                           title="Save Image"
                         >
                           {/* Download Icon from Heroicons (SVG) */}
