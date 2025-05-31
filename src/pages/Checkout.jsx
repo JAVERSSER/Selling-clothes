@@ -234,19 +234,47 @@ export default function Checkout() {
                   {showPopup && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                       <div className="bg-white p-4 rounded shadow-lg relative max-w-md w-full">
+
+                        {/* Close Button */}
                         <button
                           onClick={handleClose}
                           className="absolute top-1 right-5 text-gray-500 hover:text-gray-700 text-5xl"
                         >
                           ×
                         </button>
+
+                        {/* Save Image Icon Button */}
+                        <a
+                          href="qr.png"
+                          download="qr.png"
+                          className="absolute top-5 right-16 text-gray-500 hover:text-blue-600"
+                          title="Save Image"
+                        >
+                          {/* Download Icon from Heroicons (SVG) */}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-7 w-7"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"
+                            />
+                          </svg>
+                        </a>
+
                         <img
-                          src='qr.png'
+                          src="qr.png"
                           alt="Order Complete"
-                          className="w-full rounded"
+                          className="w-full rounded mt-8"
                         />
+
                         {/* Order Total */}
-                        <div className="bg-gray-100 p-4 rounded-lg">
+                        <div className="bg-gray-100 p-4 rounded-lg mt-4">
                           <p className="text-gray-600">Total Amount</p>
                           <p className="text-3xl font-bold text-gray-800 mt-1">${grandTotal.toFixed(2)}</p>
                         </div>
@@ -260,6 +288,7 @@ export default function Checkout() {
                       </div>
                     </div>
                   )}
+
                 </div>
               </div>
             )}
