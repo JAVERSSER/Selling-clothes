@@ -40,9 +40,36 @@ export default function Checkout() {
   };
 
   const handleClose = () => {
-    setShowPopup(false); // Hide popup on close
+    // Clear cart from localStorage
+    localStorage.removeItem('cart');
+
+    // Reset React state
+    setCart([]);
+
+    // Optional: Reset form
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      province: "",
+      message: "",
+    });
+
+    // Close the popup
+    setShowPopup(false);
+
+    // Reload the page to fully reset (optional but reliable)
+    setTimeout(() => {
+      window.location.reload();
+    }, 100); // small delay to allow popup to close
   };
 
+
+  const handleRemove = (id) => {
+    const updated = cart.filter(item => item.id !== id);
+    setCart(updated);
+    localStorage.setItem('cart', JSON.stringify(updated));
+  };
 
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const deliveryFee = 1.5;
@@ -54,8 +81,15 @@ export default function Checkout() {
     name: "",
     phone: "",
     email: "",
+    province: "",
     message: "",
   });
+
+  const isFormValid = () => {
+    const { name, phone, email, province } = formData;
+    return name && phone && email && province;
+  };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,10 +104,30 @@ export default function Checkout() {
 
     try {
       const form = new FormData();
+
+      // Build the order summary as text
+      const orderDetails = cart.map(item => {
+        return `${item.name} x ${item.qty} = $${(item.qty * item.price).toFixed(2)}`;
+      }).join('\n');
+
+      const fullOrderSummary = `
+Order Details:
+${orderDetails}
+
+Subtotal: $${total.toFixed(2)}
+Delivery Fee: $${deliveryFee.toFixed(2)}
+Total: $${grandTotal.toFixed(2)}
+    `.trim();
+
+      // Append customer information
       form.append("name", formData.name);
       form.append("phone", formData.phone);
       form.append("email", formData.email);
+      form.append("province", formData.province);
       form.append("message", formData.message);
+
+      // Append order summary to the form
+      form.append("orderSummary", fullOrderSummary);  // 👈 this gets emailed too
 
       const response = await fetch("https://formsubmit.co/ajax/thirithheng@gmail.com", {
         method: "POST",
@@ -85,16 +139,21 @@ export default function Checkout() {
 
       const data = await response.json();
       alert("Message sent successfully!");
+
+      // Clear form after submission
       setFormData({
         name: "",
         phone: "",
         email: "",
+        province: "",
         message: "",
       });
+
     } catch (error) {
       alert("Failed to send message.");
     }
   };
+
 
 
   return (
@@ -156,6 +215,7 @@ export default function Checkout() {
                       value={formData.province}
                       onChange={handleChange}
                     >
+                      <option value="" disabled hidden>Select Province</option>
                       <option value="Phnom Penh">Phnom Penh</option>
                       <option value="Kandal">Kandal</option>
                       <option value="Kampong Cham">Kampong Cham</option>
@@ -164,6 +224,7 @@ export default function Checkout() {
                     </select>
                   </div>
                 </div>
+
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Note</label>
@@ -253,11 +314,12 @@ export default function Checkout() {
                       <button
                         onClick={handleCompleteOrder}
                         className="mt-4 sm:mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-2 sm:py-3 rounded text-sm sm:text-base font-medium disabled:bg-gray-400"
-                        disabled={cart.length === 0}
+                        disabled={cart.length === 0 || !isFormValid()} // Prevent if form invalid or cart empty
                         type="submit"
                       >
                         Complete Order
                       </button>
+
                     </div>
 
                     {/* Popup Image */}
