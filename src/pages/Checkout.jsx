@@ -158,7 +158,6 @@ Total: $${grandTotal.toFixed(2)}
 
   return (
     <div>
-      <Navbar />
       <form onSubmit={handleSubmit} >
         <div className="pt-16 md:pt-20 px-4 pb-8 max-w-6xl mx-auto">
           <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 md:mt-4 mt-6">🛒 Checkout</h2>
