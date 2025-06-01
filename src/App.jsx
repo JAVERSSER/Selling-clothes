@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <ScrollToTop />
-      <Routes>
+      <Routes basename="/">
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
