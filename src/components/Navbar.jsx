@@ -76,24 +76,40 @@ function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-white shadow px-6 pt-4 pb-6 space-y-4 fixed top-16 left-0 w-full z-40">
-          <ul className="flex flex-col space-y-4 font-bold">
+          <ul className="flex flex-col font-bold">
             <li>
-              <Link to="/" onClick={toggleMenu}>
+              <Link
+                to="/"
+                onClick={toggleMenu}
+                className="block w-full px-4 py-3 rounded hover:bg-pink-100 active:bg-pink-200"
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/man" onClick={toggleMenu}>
+              <Link
+                to="/man"
+                onClick={toggleMenu}
+                className="block w-full px-4 py-3 rounded hover:bg-pink-100 active:bg-pink-200"
+              >
                 Man
               </Link>
             </li>
             <li>
-              <Link to="/woman" onClick={toggleMenu}>
+              <Link
+                to="/woman"
+                onClick={toggleMenu}
+                className="block w-full px-4 py-3 rounded hover:bg-pink-100 active:bg-pink-200"
+              >
                 Woman
               </Link>
             </li>
             <li>
-              <Link to="/checkout" onClick={toggleMenu}>
+              <Link
+                to="/checkout"
+                onClick={toggleMenu}
+                className="block w-full px-4 py-3 rounded hover:bg-pink-100 active:bg-pink-200"
+              >
                 🛒 Checkout
               </Link>
             </li>
