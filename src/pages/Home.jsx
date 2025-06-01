@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import CartBar from '../components/CartBar';
@@ -14,16 +15,19 @@ const initialProducts = [
   { id: 8, name: 'Chhuk', price: 10, image: 'T-shirt4.png', stock: 5, qty: 0 },
 ];
 
-export default function Home() {
+// Read query from URL
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
+export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const query = useQuery().get('query')?.toLowerCase() || '';
 
   const [products, setProducts] = useState(() => {
-    // On first render, try to get saved cart from localStorage
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       const savedProducts = JSON.parse(savedCart);
-      // Merge saved qty into initialProducts by matching ids
       return initialProducts.map(p => {
         const savedItem = savedProducts.find(sp => sp.id === p.id);
         return savedItem ? { ...p, qty: savedItem.qty } : p;
@@ -32,9 +36,12 @@ export default function Home() {
     return initialProducts;
   });
 
+  // Filter by search keyword
+  const filteredProducts = products.filter(p =>
+    p.name.toLowerCase().includes(query)
+  );
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
@@ -75,17 +82,21 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">Our Products</h1>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map(product => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAdd={handleAdd}
-              onIncrement={handleIncrement}
-              onDecrement={handleDecrement}
-            />
-          ))}
-        </div>
+        {filteredProducts.length === 0 ? (
+          <p className="text-center text-gray-500">No products found for "{query}"</p>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredProducts.map(product => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAdd={handleAdd}
+                onIncrement={handleIncrement}
+                onDecrement={handleDecrement}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <CartBar totalQty={totalQty} />
     </div>
