@@ -122,6 +122,7 @@ export default function Home() {
         )}
       </div>
       <CartBar totalQty={totalQty} />
+      {/* {totalQty > 0 && <CartBar totalQty={totalQty} />} */}
     </div>
   );
 }

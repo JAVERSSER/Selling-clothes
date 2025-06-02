@@ -122,6 +122,7 @@ export default function Woman() {
         )}
       </div>
       <CartBar totalQty={totalQty} />
+      {/* {totalQty > 0 && <CartBar totalQty={totalQty} />} */}
     </div>
   );
 }
