@@ -41,10 +41,10 @@ export default function Woman() {
     p.name.toLowerCase().includes(query)
   );
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setIsLoading(false), 500);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const handleAdd = (id) => {
     setProducts(products.map(p => p.id === id ? { ...p, qty: 1 } : p));
@@ -92,13 +92,13 @@ export default function Woman() {
     localStorage.setItem('cart', JSON.stringify(newCart));
   }, [products]);
   
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
