@@ -81,7 +81,16 @@ export default function Checkout() {
 
   const isFormValid = () => {
     const { name, phone, email, province } = formData;
-    return name && phone && email && province;
+
+    // Simple regex for validating gmail only
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    return (
+      name.trim() !== "" &&
+      phone.trim() !== "" &&
+      province.trim() !== "" &&
+      gmailRegex.test(email)
+    );
   };
 
   const handleChange = (e) => {
@@ -222,6 +231,8 @@ Total: $${grandTotal.toFixed(2)}
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full p-2 text-sm sm:text-base border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    title="Please enter a valid email like heng@gmail.com"
                     required
                   />
                 </div>
@@ -299,6 +310,7 @@ Total: $${grandTotal.toFixed(2)}
                         <div className="flex items-center gap-1 sm:gap-2">
                           <div className="flex items-center border border-gray-300 rounded-md">
                             <button
+                              type="button" // <--- ADD THIS
                               onClick={() => handleDecrement(item.id)}
                               className={`px-2 sm:px-2 py-1 text-sm sm:text-base ${
                                 item.qty <= 1
@@ -309,10 +321,12 @@ Total: $${grandTotal.toFixed(2)}
                             >
                               −
                             </button>
+
                             <span className="px-1 sm:px-2 py-1 border-x border-gray-300 text-center min-w-[2rem] sm:min-w-[4rem]">
                               {item.qty}
                             </span>
                             <button
+                              type="button" // <--- ADD THIS
                               onClick={() => handleIncrement(item.id)}
                               className={`px-2 sm:px-2 py-1 text-sm sm:text-base ${
                                 item.qty >= item.stock
@@ -328,6 +342,7 @@ Total: $${grandTotal.toFixed(2)}
                             ${(item.price * item.qty).toFixed(2)}
                           </span>
                           <button
+                            type="button" // <--- ADD THIS
                             onClick={() => handleRemove(item.id)}
                             className="text-red-500 hover:text-red-700"
                           >
