@@ -1,7 +1,38 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function CartBar({ totalQty }) {
-  
+export default function CartBar() {
+  const [totalQty, setTotalQty] = useState(0);
+
+  // Function to get total quantity from localStorage
+  function getTotalQty() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    return cart.reduce((sum, p) => sum + p.qty, 0);
+  }
+
+  // Update totalQty on mount and when storage changes
+  useEffect(() => {
+    // Set initial total
+    setTotalQty(getTotalQty());
+
+    // Listen for storage changes (across tabs/windows)
+    const handleStorageChange = () => {
+      setTotalQty(getTotalQty());
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Optional: Add polling every 500ms to catch local changes
+    const interval = setInterval(() => {
+      setTotalQty(getTotalQty());
+    }, 500);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div className="fixed bottom-0 left-0 w-full bg-gray-900 text-white shadow-lg border-t border-gray-200 px-6 py-3 flex justify-between items-center z-50">
       <div className="flex items-center space-x-3">

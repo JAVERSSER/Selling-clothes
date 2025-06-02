@@ -5,14 +5,14 @@ import ProductCard from '../components/ProductCard';
 import CartBar from '../components/CartBar';
 
 const initialProducts = [
-  { id: 'home-1', name: 'Tirk Dos', price: 2.5, image: 'china1.png', stock: 10, qty: 0 },
-  { id: 'home-2', name: 'Angkeadey', price: 4, image: 'china2.png', stock: 10, qty: 0 },
-  { id: 'home-3', name: 'Angkeadey', price: 3, image: 'china3.png', stock: 10, qty: 0 },
-  { id: 'home-4', name: 'Nokoreach', price: 7, image: 'china4.png', stock: 5, qty: 0 },
-  { id: 'home-5', name: 'Pkor Lorn', price: 10, image: 'T-shirt1.png', stock: 5, qty: 0 },
-  { id: 'home-6', name: 'Kolab', price: 10, image: 'T-shirt2.png', stock: 5, qty: 0 },
-  { id: 'home-7', name: 'Chhuk', price: 10, image: 'T-shirt3.png', stock: 5, qty: 0 },
-  { id: 'home-8', name: 'Chhuk', price: 10, image: 'T-shirt4.png', stock: 5, qty: 0 },
+  { id: 'man-1', name: 'Tirk Dos', price: 2.5, image: 'public/Man/Man1.png', stock: 10, qty: 0 },
+  { id: 'man-2', name: 'Angkeadey', price: 4, image: 'public/Man/Man2.png', stock: 10, qty: 0 },
+  { id: 'man-3', name: 'Angkeadey', price: 3, image: 'public/Man/Man3.png', stock: 10, qty: 0 },
+  { id: 'man-4', name: 'Nokoreach', price: 7, image: 'public/Man/Man4.png', stock: 5, qty: 0 },
+  { id: 'man-5', name: 'Pkor Lorn', price: 10, image: 'public/Man/Man5.png', stock: 5, qty: 0 },
+  { id: 'man-6', name: 'Kolab', price: 10, image: 'public/Man/Man6.png', stock: 5, qty: 0 },
+  { id: 'man-7', name: 'Chhuk', price: 10, image: 'public/Man/Man7.png', stock: 5, qty: 0 },
+  { id: 'man-8', name: 'Chhuk', price: 10, image: 'public/Man/Man8.png', stock: 5, qty: 0 },
 ];
 
 // Read query from URL
@@ -20,7 +20,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export default function Home() {
+export default function Man() {
   const [isLoading, setIsLoading] = useState(true);
   const query = useQuery().get('query')?.toLowerCase() || '';
 

@@ -138,7 +138,6 @@ Total: $${grandTotal.toFixed(2)}
       });
 
       const data = await response.json();
-      alert("Message sent successfully!");
 
       // Clear form after submission
       setFormData({
