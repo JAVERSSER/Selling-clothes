@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 
@@ -7,9 +7,11 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  // Memoize toggleMenu to avoid recreating the function every render
+  const toggleMenu = useCallback(() => setMenuOpen(open => !open), []);
 
-  const handleSearch = () => {
+  // Memoize search handler
+  const handleSearch = useCallback(() => {
     const trimmed = searchQuery.trim();
     if (trimmed === "") {
       navigate("/"); // default home
@@ -17,13 +19,19 @@ function Navbar() {
       navigate(`/?query=${encodeURIComponent(trimmed)}`);
     }
     setMenuOpen(false);
-  };
+  }, [navigate, searchQuery]);
 
-  const handleKeyDown = (e) => {
+  // Use callback here too for better performance on input keyDown
+  const handleKeyDown = useCallback((e) => {
     if (e.key === "Enter") {
       handleSearch();
     }
-  };
+  }, [handleSearch]);
+
+  // Use a stable handler for input change to avoid unnecessary renders on controlled input
+  const onChangeSearchQuery = useCallback(e => {
+    setSearchQuery(e.target.value);
+  }, []);
 
   return (
     <div>
@@ -51,23 +59,24 @@ function Navbar() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={onChangeSearchQuery}
               onKeyDown={handleKeyDown}
               placeholder="Search..."
               className="outline-none text-sm px-2 w-32"
+              aria-label="Search products"
             />
-            <button onClick={handleSearch}>
+            <button onClick={handleSearch} aria-label="Search button">
               <Search size={20} className="text-pink-500" />
             </button>
           </div>
-          <Link to="/checkout" className="text-pink-500 text-2xl">
+          <Link to="/checkout" className="text-pink-500 text-2xl" aria-label="Go to checkout">
             🛒
           </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden">
-          <button onClick={toggleMenu}>
+          <button onClick={toggleMenu} aria-label={menuOpen ? "Close menu" : "Open menu"}>
             {menuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
@@ -120,12 +129,13 @@ function Navbar() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={onChangeSearchQuery}
               onKeyDown={handleKeyDown}
               placeholder="Search..."
               className="outline-none text-sm px-2 w-full"
+              aria-label="Search products"
             />
-            <button onClick={handleSearch}>
+            <button onClick={handleSearch} aria-label="Search button">
               <Search size={20} className="text-pink-500" />
             </button>
           </div>
