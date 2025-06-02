@@ -5,14 +5,14 @@ import ProductCard from '../components/ProductCard';
 import CartBar from '../components/CartBar';
 
 const initialProducts = [
-  { id: 'woman-1', name: 'Tirk Dos', price: 2.5, image: '/Woman/Woman_1.png', stock: 10, qty: 0 },
-  { id: 'woman-2', name: 'Angkeadey', price: 4, image: '/Woman/Woman_2.png', stock: 10, qty: 0 },
-  { id: 'woman-3', name: 'Angkeadey', price: 3, image: '/Woman/Woman_3.png', stock: 10, qty: 0 },
-  { id: 'woman-4', name: 'Nokoreach', price: 7, image: '/Woman/Woman_4.png', stock: 5, qty: 0 },
-  { id: 'woman-5', name: 'Pkor Lorn', price: 10, image: '/Woman/Woman_5.png', stock: 5, qty: 0 },
-  { id: 'woman-6', name: 'Kolab', price: 10, image: '/Woman/Woman_6.png', stock: 5, qty: 0 },
-  { id: 'woman-7', name: 'Chhuk', price: 10, image: '/Woman/Woman_7.png', stock: 5, qty: 0 },
-  { id: 'woman-8', name: 'Chhuk', price: 10, image: '/Woman/Woman_8.png', stock: 5, qty: 0 },
+  { id: 'woman-1', name: 'Tirk Dos', price: 2.5, image: '/Woman/Woman_1.png', loading: 'lazy', stock: 10, qty: 0 },
+  { id: 'woman-2', name: 'Angkeadey', price: 4, image: '/Woman/Woman_2.png', loading: 'lazy', stock: 10, qty: 0 },
+  { id: 'woman-3', name: 'Angkeadey', price: 3, image: '/Woman/Woman_3.png', loading: 'lazy', stock: 10, qty: 0 },
+  { id: 'woman-4', name: 'Nokoreach', price: 7, image: '/Woman/Woman_4.png', loading: 'lazy', stock: 5, qty: 0 },
+  { id: 'woman-5', name: 'Pkor Lorn', price: 10, image: '/Woman/Woman_5.png', loading: 'lazy', stock: 5, qty: 0 },
+  { id: 'woman-6', name: 'Kolab', price: 10, image: '/Woman/Woman_6.png', loading: 'lazy', stock: 5, qty: 0 },
+  { id: 'woman-7', name: 'Chhuk', price: 10, image: '/Woman/Woman_7.png', loading: 'lazy', stock: 5, qty: 0 },
+  { id: 'woman-8', name: 'Chhuk', price: 10, image: '/Woman/Woman_8.png', loading: 'lazy', stock: 5, qty: 0 },
 ];
 
 // Read query from URL
