@@ -8,7 +8,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   // Memoize toggleMenu to avoid recreating the function every render
-  const toggleMenu = useCallback(() => setMenuOpen(open => !open), []);
+  const toggleMenu = useCallback(() => setMenuOpen((open) => !open), []);
 
   // Memoize search handler
   const handleSearch = useCallback(() => {
@@ -22,14 +22,17 @@ function Navbar() {
   }, [navigate, searchQuery]);
 
   // Use callback here too for better performance on input keyDown
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  }, [handleSearch]);
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Enter") {
+        handleSearch();
+      }
+    },
+    [handleSearch]
+  );
 
   // Use a stable handler for input change to avoid unnecessary renders on controlled input
-  const onChangeSearchQuery = useCallback(e => {
+  const onChangeSearchQuery = useCallback((e) => {
     setSearchQuery(e.target.value);
   }, []);
 
@@ -39,6 +42,13 @@ function Navbar() {
         <Link to="/" className="text-pink-500 text-2xl font-bold">
           Heng Thirith Shop
         </Link>
+        {/* <Link to="/">
+          <img
+            src="/logo/logo.png" // Update this to your actual logo path
+            alt="Heng Thirith Shop Logo"
+            className="h-10 w-96 object-fit-cover" // Adjust height as needed
+          />
+        </Link> */}
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-20 text-[1rem] mx-auto font-bold">
@@ -69,17 +79,28 @@ function Navbar() {
               <Search size={20} className="text-pink-500" />
             </button>
           </div>
-          <Link to="/delivery" className="text-pink-500 text-2xl" aria-label="Go to checkout">
+          <Link
+            to="/delivery"
+            className="text-pink-500 text-2xl"
+            aria-label="Go to checkout"
+          >
             🚛
           </Link>
-          <Link to="/checkout" className="text-pink-500 text-2xl" aria-label="Go to checkout">
+          <Link
+            to="/checkout"
+            className="text-pink-500 text-2xl"
+            aria-label="Go to checkout"
+          >
             🛒
           </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden">
-          <button onClick={toggleMenu} aria-label={menuOpen ? "Close menu" : "Open menu"}>
+          <button
+            onClick={toggleMenu}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
             {menuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
