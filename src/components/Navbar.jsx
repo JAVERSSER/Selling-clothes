@@ -69,6 +69,9 @@ function Navbar() {
               <Search size={20} className="text-pink-500" />
             </button>
           </div>
+          <Link to="/delivery" className="text-pink-500 text-2xl" aria-label="Go to checkout">
+            🚛
+          </Link>
           <Link to="/checkout" className="text-pink-500 text-2xl" aria-label="Go to checkout">
             🛒
           </Link>
@@ -111,6 +114,15 @@ function Navbar() {
                 className="block w-full px-4 py-3 rounded hover:bg-pink-100 active:bg-pink-200"
               >
                 Woman
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/checkout"
+                onClick={toggleMenu}
+                className="block w-full px-4 py-3 rounded hover:bg-pink-100 active:bg-pink-200"
+              >
+                🚛 delivery
               </Link>
             </li>
             <li>

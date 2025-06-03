@@ -5,6 +5,7 @@ import Checkout from './pages/Checkout';
 import ScrollToTop from './components/ScrollToTop';
 import Man from './pages/Man';
 import Woman from './pages/Woman';
+import Delivery from './pages/Delivery';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/man" element={<Man/>} />
         <Route path="/woman" element={<Woman/>} />
+        <Route path='/delivery' element={<Delivery/>}></Route>
       </Routes>
     </BrowserRouter>
   );
